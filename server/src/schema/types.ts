@@ -13,7 +13,7 @@ export const typeDefs = `
   }
 
   type Mutation {
-    createUser(name: String!, email: String!, password: String!): String
+    createUser(name: String!, email: String!, password: String!): ID
   }
 
   type Log {
@@ -23,11 +23,16 @@ export const typeDefs = `
     calories: Int
     weight: Int
     notes: String
-    user: User!
+    userId: User!
   }
 
   extend type Query {
     logs: [Log!]
     log(id: ID!): Log
+    userLogs(id: ID!): [Log!]
+  }
+
+  extend type Mutation {
+    createLog(date: String!, exercise: Int, calories: Int, weight: Int, notes: String, user: ID!): ID
   }
 `;

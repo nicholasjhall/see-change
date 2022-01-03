@@ -15,17 +15,36 @@ export const resolvers = {
     log: async (parent: any, args: any) => {
       return await Logs.findOne({ id: args.id });
     },
+    userLogs: async (parent: any, args: any) => {
+      return await Logs.find({
+        relations: ["user"],
+        where: { user: { id: args.id } },
+      });
+    },
   },
   Mutation: {
     createUser: async (parent: any, args: any) => {
       const { name, email, password } = args;
-      await Users.insert({
-        name: name,
-        email: email,
-        password: password,
+      const result = await Users.insert({
+        name,
+        email,
+        password,
         logs: [],
       });
-      return "User created";
+      console.log(result);
+      return result.identifiers[0].id;
+    },
+    createLog: async (parent: any, args: any) => {
+      const { date, exercise, calories, weight, notes, user } = args;
+      const result = await Logs.insert({
+        date,
+        exercise,
+        calories,
+        weight,
+        notes,
+        user,
+      });
+      return result.identifiers[0].id;
     },
   },
 };

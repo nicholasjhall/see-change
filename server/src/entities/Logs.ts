@@ -1,28 +1,34 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { Users } from "./Users";
 
 @Entity()
 export class Logs extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-    @PrimaryGeneratedColumn()
-    id!: number;
+  @Column()
+  date!: string;
 
-    @Column()
-    date!: string;
+  @Column()
+  exercise?: number;
 
-    @Column()
-    exercise?: number;
+  @Column()
+  calories?: number;
 
-    @Column()
-    calories?: number;
+  @Column()
+  weight?: number;
 
-    @Column()
-    weight?: number;
+  @Column()
+  notes?: string;
 
-    @Column()
-    notes?: string;
-
-    @ManyToOne(() => Users, user => user.logs)
-    user!: Users;
-
+  @ManyToOne(() => Users, (user) => user.logs, {
+    cascade: true,
+  })
+  user!: Users;
 }
