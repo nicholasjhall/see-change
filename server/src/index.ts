@@ -3,8 +3,8 @@ import { graphqlHTTP } from "express-graphql";
 import cors from "cors";
 import { createConnection } from "typeorm";
 import { makeExecutableSchema } from "graphql-tools";
-import { typeDef as User, resolvers as UserResolvers } from './schema/user';
-import { typeDef as Log, resolvers as LogResolvers } from "./schema/log";
+import { typeDefs } from "./schema/types";
+import { resolvers } from "./schema/resolvers";
 import { Users } from "./entities/Users";
 import { Logs } from "./entities/Logs";
 
@@ -19,14 +19,9 @@ const main = async () => {
     entities: [Users, Logs],
   });
 
-  const baseTypeDefs = `
-    type Query
-    type Mutation
-  `;
-
   const schema = makeExecutableSchema({
-    typeDefs: [baseTypeDefs, User, Log],
-    resolvers: Object.assign({}, UserResolvers, LogResolvers)
+    typeDefs,
+    resolvers
   })
 
   const app = express();

@@ -1,4 +1,4 @@
-import { BaseEntity, Column, DataTypeNotSupportedError, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Logs } from "./Logs"
 
 @Entity()
