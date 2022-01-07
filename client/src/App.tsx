@@ -1,6 +1,7 @@
 import React from "react";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import "./App.css";
+import LogList from "./components/LogList";
 
 function App() {
   const client = new ApolloClient({
@@ -9,7 +10,7 @@ function App() {
   });
 
   return <ApolloProvider client={client}>
-    
+    <LogList></LogList>
   </ApolloProvider>;
 }
 
